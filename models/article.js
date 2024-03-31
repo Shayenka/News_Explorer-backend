@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   keyWord: {
-    type: String,
+    type: String,     
     required: true,
   },
   title: {
