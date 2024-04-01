@@ -48,9 +48,8 @@ const User = mongoose.model('user', userSchema);
 
 module.exports = { User };
 
-
-
-// Se utiliza un middleware pre('save') para encriptar la contraseña antes de guardarla en la base de datos. 
+// Se utiliza un middleware pre('save') para encriptar la contraseña
+//  antes de guardarla en la base de datos.
 // Esto asegura que la contraseña siempre se almacene de forma segura en forma de hash.
 
 // Middleware para encriptar la contraseña antes de guardar el usuario en la base de datos

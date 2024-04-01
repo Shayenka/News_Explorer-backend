@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   keyWord: {
-    type: String,     
+    type: String,
     required: true,
   },
   title: {
@@ -52,4 +52,4 @@ module.exports = mongoose.model('article', articleSchema);
 //     ref: 'user',
 //     default: [],
 //     select: false,
-//   },
+//   }

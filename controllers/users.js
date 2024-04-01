@@ -1,23 +1,20 @@
 const bcrypt = require('bcryptjs');
 const { generateAuthToken } = require('../utils/utils');
 const { User } = require('../models/user');
-const { InvalidError, ServerError } = require('../middlewares/errors')
+const { InvalidError, ServerError } = require('../middlewares/errors');
 
 // Información sobre el usuario conectado (correo electrónico y nombre)
 const getUserProfile = (req, res) => {
-    const { user } = req;
-    res.json({ email: user.email, name: user.name });
-  };
-  
+  const { user } = req;
+  res.json({ email: user.email, name: user.name });
+};
 
 const hashPassword = async (password) => bcrypt.hash(password, 10);
 
-//Registro de usuario
+// Registro de usuario
 const createUser = async (req, res, next) => {
   try {
-    const {
-      name, email, password,
-    } = req.body;
+    const { name, email, password } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       throw InvalidError('Ya Existe un usuario con ese email');
@@ -40,7 +37,7 @@ const createUser = async (req, res, next) => {
   }
 };
 
-//Inicio de sesión
+// Inicio de sesión
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -54,8 +51,6 @@ const login = async (req, res, next) => {
     return res.status(404).send('Not found');
   }
 };
-
-
 
 module.exports = {
   getUserProfile,

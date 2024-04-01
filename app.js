@@ -10,14 +10,27 @@ require('dotenv').config();
 
 const { PORT, MONGODB_URL } = process.env;
 
+const app = express();
+app.use(express.json());
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(requestLogger);
+}
+
+app.use(requestLogger);
+
+app.use(cors());
+app.options('*', cors());
+
 const usersPath = path.join(__dirname, 'routes', 'users');
 const users = require(usersPath);
-const articlePath = path.join(__dirname, 'routes', 'cards');
-const article = require(articlePath);
+const articlePath = path.join(__dirname, 'routes', 'articles');
+const articles = require(articlePath);
 
 const { login, createUser } = require('./controllers/users');
 
-mongoose.connect(MONGODB_URL || 'mongodb://127.0.0.1:27017/aroundb')
+mongoose
+  .connect(MONGODB_URL || 'mongodb://127.0.0.1:27017/news_explorer')
   .then(() => {
     console.log('Connected to database');
   })
@@ -25,16 +38,8 @@ mongoose.connect(MONGODB_URL || 'mongodb://127.0.0.1:27017/aroundb')
     console.error(`Error connecting to the database. ${err}`);
   });
 
-const app = express();
-app.use(express.json());
-
-app.use(requestLogger);
-
-app.use(cors());
-app.options('*', cors());
-
 app.use(users);
-app.use(article);
+app.use(articles);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
