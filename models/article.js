@@ -53,3 +53,17 @@ module.exports = mongoose.model('article', articleSchema);
 //     default: [],
 //     select: false,
 //   }
+
+{
+  "keyWord": "Programación",
+  "title": "javascript",
+  "text": "Es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, ​ basado en prototipos, imperativo, débilmente tipado y dinámico.",
+  "date": "1 de abril del 2024",
+  "source": "Wikipedia",
+  "link": "https://es.wikipedia.org/wiki/JavaScript",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png",
+  "owner": "6609fe2a898ef547a80844fb"
+}
+
+
+https://localhost:3000/articles/save
