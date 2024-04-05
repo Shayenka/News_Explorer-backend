@@ -46,23 +46,3 @@ const articleSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('article', articleSchema);
-
-//   likes: {
-//     type: [mongoose.Schema.Types.ObjectId],
-//     ref: 'user',
-//     default: [],
-//     select: false,
-//   }
-
-// {
-//   "keyWord": "Programación",
-//   "title": "javascript",
-//   "text": "Es un lenguaje de programación interpretado...",
-//   "date": "1 de abril del 2024",
-//   "source": "Wikipedia",
-//   "link": "https://es.wikipedia.org/wiki/JavaScript",
-//   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png",
-//   "owner": "6609fe2a898ef547a80844fb"
-// }
-
-// https://localhost:3000/articles/save
