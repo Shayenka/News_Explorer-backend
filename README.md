@@ -34,10 +34,12 @@ Para ejecutar el proyecto localmente, sigue los siguientes pasos:
 
 3. Crear el archivo .env y agregar las siguientes variables de entorno:
 ### Variables de entorno
-```NODE_ENV=production
+```bash
+NODE_ENV=production
 PORT=3000
 MONGODB_URL=mongodb://127.0.0.1:27017/news_explorer
-SECRET_KEY=mysecretkey```
+SECRET_KEY=mysecretkey
+```
   
 `npm run start` — Para ejecutar la aplicación en un entorno de desarrollo.  
   
