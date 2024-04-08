@@ -59,8 +59,10 @@ El servidor se ejecutará en el puerto 3000 por defecto.
 
 ## Dominios del servidor
 
-api.shayenkalvarado.com 
-shayenkalvarado.com 
+api.shayenkalvarado.com
+
+shayenkalvarado.com
+
 www.shayenkalvarado.com
 
 **Clave SSH del equipo de TripleTen para ingresar al servidor**.
