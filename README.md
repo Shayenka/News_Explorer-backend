@@ -1,4 +1,5 @@
 # News_Explorer-backend
+
 En este proyecto se creó una **API REST** para la aplicación **"News Explorer"**, que permite a los usuarios buscar, agregar y guardar artículos de noticias de interes.
 
 ## Tecnologías utilizadas
