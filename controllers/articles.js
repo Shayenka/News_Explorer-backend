@@ -1,15 +1,13 @@
 const Article = require('../models/article');
 const { InvalidError, ServerError } = require('../middlewares/errors');
 
-// Guardar artículo
 const saveArticle = async (req, res, next) => {
   try {
     const {
       keyword, title, text, date, source, link, image,
     } = req.body;
-    const userId = req.user._id; // Obtener el ID del usuario desde el JWT
+    const userId = req.user._id;
 
-    // Crear un nuevo artículo asociado al usuario
     const article = new Article({
       keyword,
       title,
@@ -18,19 +16,17 @@ const saveArticle = async (req, res, next) => {
       source,
       link,
       image,
-      owner: userId, // Asociar el ID del usuario con el artículo
+      owner: userId,
     });
 
-    // Guardar el artículo en la base de datos
     await article.save();
 
-    res.status(201).json(article); // Responder con el artículo guardado
+    res.status(201).json(article);
   } catch (error) {
     next(error);
   }
 };
 
-// Artículos guardados por el usuario
 const getSavedArticles = async (req, res, next) => {
   try {
     const userId = req.user._id;
@@ -41,7 +37,6 @@ const getSavedArticles = async (req, res, next) => {
   }
 };
 
-// Artículos creados por el usuario
 const createArticle = async (req, res, next) => {
   try {
     const {
@@ -58,7 +53,6 @@ const createArticle = async (req, res, next) => {
     });
     res.status(201).json(newArticle);
   } catch (error) {
-    console.log(error);
     if (error.name === 'ValidationError') {
       next(InvalidError('Datos del artpículo inválidos.'));
     } else {
@@ -67,7 +61,6 @@ const createArticle = async (req, res, next) => {
   }
 };
 
-// Artículos eliminado por el usuario
 const deleteArticleById = async (req, res, next) => {
   try {
     const userId = req.user._id;

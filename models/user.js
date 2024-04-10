@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.findUserWithCredentials = function findUserWithCredentials(
   email,
-  password,
+  password
 ) {
   return this.findOne({ email })
     .select('+password')
@@ -47,17 +47,3 @@ userSchema.statics.findUserWithCredentials = function findUserWithCredentials(
 const User = mongoose.model('user', userSchema);
 
 module.exports = { User };
-
-// Se utiliza un middleware pre('save') para encriptar la contraseña
-//  antes de guardarla en la base de datos.
-// Esto asegura que la contraseña siempre se almacene de forma segura en forma de hash.
-
-// Middleware para encriptar la contraseña antes de guardar el usuario en la base de datos
-// userSchema.pre('save', async function (next) {
-//     if (!this.isModified('password')) {
-//       return next();
-//     }
-//     const hashedPassword = await bcrypt.hash(this.password, 10);
-//     this.password = hashedPassword;
-//     next();
-//   });

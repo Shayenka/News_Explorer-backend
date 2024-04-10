@@ -3,7 +3,6 @@ const { generateAuthToken } = require('../utils/utils');
 const { User } = require('../models/user');
 const { InvalidError, ServerError } = require('../middlewares/errors');
 
-// Información sobre el usuario conectado (correo electrónico y nombre)
 const getUserProfile = (req, res) => {
   const { user } = req;
   res.json({ email: user.email, name: user.name });
@@ -11,7 +10,6 @@ const getUserProfile = (req, res) => {
 
 const hashPassword = async (password) => bcrypt.hash(password, 10);
 
-// Registro de usuario
 const createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -37,7 +35,6 @@ const createUser = async (req, res, next) => {
   }
 };
 
-// Inicio de sesión
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {

@@ -7,7 +7,6 @@ const { jwtMiddleware } = require('../middlewares/auth');
 
 const { validateURL } = require('../middlewares/validator');
 
-// Guardar artículo
 router.post(
   '/articles/save',
   jwtMiddleware,
@@ -22,13 +21,11 @@ router.post(
       image: Joi.string().required().custom(validateURL),
     }),
   }),
-  articlesController.saveArticle,
+  articlesController.saveArticle
 );
 
-// Devuelve todos los artículos guardados por el usuario
 router.get('/articles', jwtMiddleware, articlesController.getSavedArticles);
 
-// Crear artículo
 router.post(
   '/articles',
   jwtMiddleware,
@@ -43,14 +40,13 @@ router.post(
       image: Joi.string().required().custom(validateURL),
     }),
   }),
-  articlesController.createArticle,
+  articlesController.createArticle
 );
 
-// Eliminar artículo
 router.delete(
   '/articles/articleId',
   jwtMiddleware,
-  articlesController.deleteArticleById,
+  articlesController.deleteArticleById
 );
 
 module.exports = router;
