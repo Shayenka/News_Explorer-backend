@@ -1,26 +1,10 @@
-const InvalidError = (message) => {
-  const error = new Error(message);
-  error.statusCode = 400;
-  return error;
-};
+const InvalidError = (message) => ({ statusCode: 400, message });
 
-const NotAuthorization = (message) => {
-  const error = new Error(message);
-  error.statusCode = 401;
-  return error;
-};
+const NotAuthorization = (message) => ({ statusCode: 401, message });
 
-const NotFoundError = (message) => {
-  const error = new Error(message);
-  error.statusCode = 404;
-  return error;
-};
+const NotFoundError = (message) => ({ statusCode: 404, message });
 
-const ServerError = (message) => {
-  const error = new Error(message);
-  error.statusCode = 500;
-  return error;
-};
+const ServerError = (message) => ({ statusCode: 500, message });
 
 module.exports = {
   NotFoundError,

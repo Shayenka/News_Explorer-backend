@@ -54,9 +54,9 @@ const createArticle = async (req, res, next) => {
     res.status(201).json(newArticle);
   } catch (error) {
     if (error.name === 'ValidationError') {
-      next(InvalidError('Datos del artpículo inválidos.'));
+      next(new InvalidError('Datos del artículo inválidos.'));
     } else {
-      next(ServerError('Ha ocurrido un error en el servidor.'));
+      next(new ServerError('Ha ocurrido un error en el servidor.'));
     }
   }
 };

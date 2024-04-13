@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs');
 const { generateAuthToken } = require('../utils/utils');
 const { User } = require('../models/user');
-const { InvalidError, ServerError } = require('../middlewares/errors');
+const {
+  InvalidError,
+  ServerError,
+  NotAuthorization,
+} = require('../middlewares/errors');
 
 const getUserProfile = (req, res) => {
   const { user } = req;
@@ -15,7 +19,9 @@ const createUser = async (req, res, next) => {
     const { name, email, password } = req.body;
     const user = await User.findOne({ email });
     if (user) {
-      throw InvalidError('Ya Existe un usuario con ese email');
+      return res
+        .status(409)
+        .json({ error: 'Ya existe un usuario con ese email' });
     }
 
     const passwordHashed = await hashPassword(password);
@@ -28,9 +34,9 @@ const createUser = async (req, res, next) => {
     res.status(201).json(newUser);
   } catch (error) {
     if (error.name === 'ValidationError') {
-      next(InvalidError('Se pasaron datos incorrectos.'));
+      next(new InvalidError('Se pasaron datos incorrectos.'));
     } else {
-      next(ServerError('Ha ocurrido un error en el servidor.'));
+      next(new ServerError('Ha ocurrido un error en el servidor.'));
     }
   }
 };
@@ -41,11 +47,11 @@ const login = async (req, res, next) => {
     const user = await User.findUserWithCredentials(email, password);
     if (user) {
       const token = await generateAuthToken(user);
-      return res.send({ token });
+      return res.json({ token });
     }
-    throw InvalidCredentialsError('Credenciales de inicio de sesión inválidas');
+    next(new NotAuthorization('Credenciales de inicio de sesión inválidas'));
   } catch (error) {
-    return res.status(404).send('Not found');
+    next(new ServerError('Error interno del servidor'));
   }
 };
 
