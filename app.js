@@ -5,10 +5,12 @@ const path = require('path');
 const cors = require('cors');
 const requestLogger = require('./middlewares/request.log');
 const errorLogger = require('./middlewares/error.log');
+const { PORT, MONGODB_URL } = require('./utils/constants');
 
 require('dotenv').config();
 
-const { PORT, MONGODB_URL } = process.env;
+// const PORT = process.env.PORT || 3000;
+// const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/news_explorer';
 
 const app = express();
 app.use(express.json());
@@ -30,7 +32,7 @@ const articles = require(articlePath);
 const { login, createUser } = require('./controllers/users');
 
 mongoose
-  .connect(MONGODB_URL || 'mongodb://127.0.0.1:27017/news_explorer')
+  .connect(MONGODB_URL)
   .then(() => {
     console.log('Connected to database');
   })
@@ -62,6 +64,6 @@ app.use((err, req, res, next) => {
   res.status(err.statusCode).send({ message: err.message });
 });
 
-app.listen(3000, () => {
-  console.log(`Server running on port ${PORT || 3000}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

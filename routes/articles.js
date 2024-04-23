@@ -4,6 +4,7 @@ const router = express.Router();
 const { celebrate } = require('celebrate');
 const articlesController = require('../controllers/articles');
 const { jwtMiddleware } = require('../middlewares/auth');
+const articleSchema = require('../models/article');
 
 router.post(
   '/articles/save',

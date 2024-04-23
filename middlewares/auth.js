@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { SECRET_KEY } = require('../utils/constants');
 
 const jwtMiddleware = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -9,7 +10,7 @@ const jwtMiddleware = async (req, res, next) => {
   const token = authorization.replace('Bearer ', '');
 
   try {
-    const payload = await jwt.verify(token, process.env.SECRET_KEY);
+    const payload = await jwt.verify(token, SECRET_KEY);
 
     if (!payload) {
       return res.status(403).send({ message: 'El token no es valido' });
