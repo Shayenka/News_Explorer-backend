@@ -47,9 +47,7 @@ const login = async (req, res, next) => {
     const user = await User.findUserWithCredentials(email, password);
     if (user) {
       const token = await generateAuthToken(user);
-      const responseData = { email: user.email, token };
-      return res.json(responseData);
-      // return res.json({ token });
+      return res.json({ token });
     }
     next(new NotAuthorization('Credenciales de inicio de sesión inválidas'));
   } catch (error) {
