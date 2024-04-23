@@ -31,7 +31,7 @@ const createUser = async (req, res, next) => {
       password: passwordHashed,
     });
 
-    res.status(201).json(newUser);
+    res.status(201).json({ email: newUser.email, name: newUser.name });
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new InvalidError('Se pasaron datos incorrectos.'));
@@ -47,7 +47,9 @@ const login = async (req, res, next) => {
     const user = await User.findUserWithCredentials(email, password);
     if (user) {
       const token = await generateAuthToken(user);
-      return res.json({ token });
+      const responseData = { email: user.email, token };
+      return res.json(responseData);
+      // return res.json({ token });
     }
     next(new NotAuthorization('Credenciales de inicio de sesión inválidas'));
   } catch (error) {
