@@ -7,10 +7,14 @@ const requestLogger = require('./middlewares/request.log');
 const errorLogger = require('./middlewares/error.log');
 const { PORT, MONGODB_URL } = require('./utils/constants');
 
-require('dotenv').config();
+const usersPath = path.join(__dirname, 'routes', 'users');
+const users = require(usersPath);
+const articlePath = path.join(__dirname, 'routes', 'articles');
+const articles = require(articlePath);
 
-// const PORT = process.env.PORT || 3000;
-// const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/news_explorer';
+const { login, createUser } = require('./controllers/users');
+
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
@@ -23,13 +27,6 @@ app.use(requestLogger);
 
 app.use(cors());
 app.options('*', cors());
-
-const usersPath = path.join(__dirname, 'routes', 'users');
-const users = require(usersPath);
-const articlePath = path.join(__dirname, 'routes', 'articles');
-const articles = require(articlePath);
-
-const { login, createUser } = require('./controllers/users');
 
 mongoose
   .connect(MONGODB_URL)

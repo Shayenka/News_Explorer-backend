@@ -34,9 +34,9 @@ const createUser = async (req, res, next) => {
     res.status(201).json({ email: newUser.email, name: newUser.name });
   } catch (error) {
     if (error.name === 'ValidationError') {
-      next(new InvalidError('Se pasaron datos incorrectos.'));
+      next(InvalidError('Se pasaron datos incorrectos.'));
     } else {
-      next(new ServerError('Ha ocurrido un error en el servidor.'));
+      next(ServerError('Ha ocurrido un error en el servidor.'));
     }
   }
 };
@@ -49,9 +49,9 @@ const login = async (req, res, next) => {
       const token = await generateAuthToken(user);
       return res.json({ token });
     }
-    next(new NotAuthorization('Credenciales de inicio de sesión inválidas'));
+    next(NotAuthorization('Credenciales de inicio de sesión inválidas'));
   } catch (error) {
-    next(new ServerError('Error interno del servidor'));
+    next(ServerError('Error interno del servidor'));
   }
 };
 
