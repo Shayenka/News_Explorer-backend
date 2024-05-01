@@ -23,7 +23,7 @@ router.post(
 );
 
 router.delete(
-  '/articles/articleId',
+  '/articles/:articleId',
   jwtMiddleware,
   articlesController.deleteArticleById,
 );
