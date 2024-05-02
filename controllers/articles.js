@@ -4,12 +4,13 @@ const { InvalidError, ServerError } = require('../middlewares/errors');
 const saveArticle = async (req, res, next) => {
   try {
     const {
-      keyword, title, text, date, source, link, image,
+      id, title, text, date, source, link, image,
     } = req.body;
     const userId = req.user._id;
-
+    // console.log(req.body);
     const article = new Article({
-      keyword,
+      // keyWord,
+      id,
       title,
       text,
       date,
@@ -18,12 +19,13 @@ const saveArticle = async (req, res, next) => {
       image,
       owner: userId,
     });
-
+    // console.log(article);
     await article.save();
+    console.log(article);
 
     res.status(201).json(article);
   } catch (error) {
-    next(error);
+    next(InvalidError('Datos del artículo inválidos.'));
   }
 };
 
@@ -33,7 +35,7 @@ const getSavedArticles = async (req, res, next) => {
     const articles = await Article.find({ owner: userId });
     res.json(articles);
   } catch (error) {
-    next(error);
+    next(NotFoundError('Artículos no encontrado'));
   }
 };
 
@@ -62,17 +64,23 @@ const createArticle = async (req, res, next) => {
 };
 
 const deleteArticleById = async (req, res, next) => {
+  console.log("prueba");
   try {
     const userId = req.user._id;
     const { articleId } = req.params;
+    console.log(articleId);
     const deletedArticle = await Article.findOneAndDelete({
-      _id: articleId,
+      id: articleId,
       owner: userId,
     });
+    console.log(articleId);
+    console.log(userId);
+    // console.log(deletedArticle);
     if (!deletedArticle) {
       return res.status(404).json({ message: 'Artículo no encontrado' });
     }
     res.json(deletedArticle);
+    // console.log(deletedArticle);
   } catch (error) {
     next(error);
   }
