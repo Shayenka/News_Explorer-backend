@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
-  // keyWord: {
-  //   type: String,
-  //   required: true,
-  // },
   id: {
     type: String,
     required: true,
   },
+  // keyWord: {
+  //   type: String,
+  //   required: true,
+  // },
   title: {
     type: String,
     required: true,
