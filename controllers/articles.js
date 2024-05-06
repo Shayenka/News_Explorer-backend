@@ -4,13 +4,13 @@ const { InvalidError, ServerError } = require('../middlewares/errors');
 const saveArticle = async (req, res, next) => {
   try {
     const {
-      id, title, text, date, source, link, image,
+      id, keyWord, title, text, date, source, link, image,
     } = req.body;
     const userId = req.user._id;
     console.log(req.body);
     const article = new Article({
       id,
-      // keyWord,
+      keyWord,
       title,
       text,
       date,
