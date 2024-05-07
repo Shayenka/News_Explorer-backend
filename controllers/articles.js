@@ -7,7 +7,6 @@ const saveArticle = async (req, res, next) => {
       id, keyWord, title, text, date, source, link, image,
     } = req.body;
     const userId = req.user._id;
-    console.log(req.body);
     const article = new Article({
       id,
       keyWord,
@@ -20,7 +19,6 @@ const saveArticle = async (req, res, next) => {
       owner: userId,
     });
     await article.save();
-    console.log(article);
 
     res.status(201).json(article);
   } catch (error) {
@@ -66,7 +64,6 @@ const deleteArticleById = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const { articleId } = req.params;
-    console.log(articleId);
     const deletedArticle = await Article.findOneAndDelete({
       id: articleId,
       owner: userId,
@@ -75,7 +72,6 @@ const deleteArticleById = async (req, res, next) => {
       return res.status(404).json({ message: 'Artículo no encontrado' });
     }
     res.json(deletedArticle);
-    // console.log(deletedArticle);
   } catch (error) {
     next(error);
   }
